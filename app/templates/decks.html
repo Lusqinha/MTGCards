@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <title>Your Decks</title>
+    <style>
+        /* Estilos para a mensagem "Em Desenvolvimento" */
+        .development-message {
+            text-align: center;
+            padding: 50px;
+            font-size: 4rem;
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('decks') }}">Seus decks</a></li>
+                <li><a href="{{ url_for('mycards') }}">Suas cartas</a></li>
+                <li><a href="{{ url_for('logout') }}">Sair</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Seus decks</h1>
+        <div class="development-message">
+            <p>Está funcionalidade estará disponível em breve!</p>
+        </div>
+    </main>
+
+    <!-- ... scripts ... -->
+</body>
+
+</html>

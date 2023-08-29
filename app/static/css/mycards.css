@@ -1,0 +1,138 @@
+body, h1, h2, ul, li, p, a {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #3c3c52;
+    color: #333;
+}
+
+header {
+    background-color: #292c35;
+    color: white;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+nav li {
+    margin: 0 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #252534;
+    color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.search{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    margin-top: 3rem;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.search form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.search form input{
+    width: 30%;
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    margin-bottom: 10px;
+    font-size: 2rem;
+    text-align: center;
+    
+}
+.search form button{
+    width: 20%;
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    margin-bottom: 10px;
+    background-color: #292c35;
+    color: white;
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+.card-list {
+    margin-top: 20px;
+    
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10vw, 1fr));
+    grid-gap: 25px;
+}
+
+.card-item{
+    background-color: #292c35;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-image{
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 15px;
+}
+
+.card-details{
+
+        flex: 1 0 auto;
+    margin-top: 2rem;
+    
+}
+
+#add_btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-radius: 15px;
+    background-color: #292c35;
+    color: white;
+    padding: 10px;
+    margin-top: 10px;
+
+}
