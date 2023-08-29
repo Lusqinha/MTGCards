@@ -1,5 +1,5 @@
 from mtgsdk import Card
-from json import dumps
+from json import dumps, loads
 from sys import argv
 
 class MTGCards:
@@ -42,13 +42,13 @@ class MTGCards:
                 card_output_json = dumps(card_output, indent=4)
                 
                 card_output = card_output_json
-                return card_output
+                return loads(card_output)
             else:
                 print("No card found")
-                return
+                return card_entry
         else:
             print("No foreign names found in card entry")
-            return
+            return card_entry
         
     def find_one_by_name(self, card_name:str):
         card_output = {}
@@ -69,30 +69,45 @@ class MTGCards:
             return card_output
         
     def fetch_many_by_name(self, card_name:str):
-        cards:list = Card.where(name=card_name).all()
         card_output = []
-        for card in cards:
-            card_entry = card.__dict__
-            card_output.append(card_entry)
-            
-        return card_output
-    
-    def fetch_by_id(self, card_id):
-        card = Card.where(id=card_id).all()[0]
+        try:
+            cards:list = Card.where(name=card_name).all()
+            for card in cards:
+                card_entry = card.__dict__
+                card_output.append(card_entry)
+            if len(card_output) == 0:
+                raise IndexError
+        except (IndexError):
+            print("Card not found in English: ", card_name)
+
+            cards:list = Card.where(language=self.languages[0]).where(name=card_name).all()
+            for card in cards:
+                card_entry = card.__dict__
+                card_output.append(card_entry)
+        finally:
+            return card_output
+        
+    def fetch_by_id(self, card_id, card_name):
+        card = Card.where(name=card_name).where(id=card_id).all()[0]
         card_entry = card.__dict__
-        card_output = card_entry
+        card_output = self.remove_non_ptbr(card_entry)
         return card_output
     
     def fetch_by_img(self, img_url):
         card = Card.where(image_url=img_url).all()[0]
         card_entry = card.__dict__
-        card_output = card_entry
+        card_output = self.remove_non_ptbr(card_entry)
         return card_output
 
+    def fetch_by_multiverse_id(self, multiverse_id):
+        card = Card.where(multiverse_id=multiverse_id).all()[0]
+        card_entry = card.__dict__
+        card_output = self.remove_non_ptbr(card_entry)
+        return card_output
         
         
         
 if __name__ == '__main__':
     mtg_cards = MTGCards()
-    print(mtg_cards.fetch_by_id(argv[1]))
+    print(mtg_cards.fetch_by_multiverse_id(argv[1]))
         

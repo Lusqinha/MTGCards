@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css')}}">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <center><h1>MTGCards</h1></center>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h1>Bem-vindo ao MTGCards</h1>
+            <p>O registro de sua coleção de Magic na palma da sua mão!</p>
+            <a href="{{ url_for('login') }}" class="cta-button">Entrar</a>
+            <a href="{{ url_for('register') }}" class="cta-button">Registrar-se</a>
+        </div>
+    </main>
+</body>
+
+</html>

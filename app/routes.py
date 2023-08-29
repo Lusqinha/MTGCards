@@ -151,16 +151,33 @@ def search():
 @login_required
 def add_card():
     if request.method == 'POST':
-        card = request.form['card_img']
+        card_id = request.form['card_id']
+        card_name = request.form['card_name']
         user_id = session.get('user_id')
-        print(card)
-        card_data = fetcher.fetch_by_img(card)
+        print(card_id, card_name)
+        card_data = fetcher.fetch_by_id(card_id, card_name)
         
         card_register(card_data, user_id) # type: ignore
         
         return redirect(url_for('mycards'))
     
     return redirect(url_for('search'))
+
+@app.route('/dashboard/delete_card', methods=['POST']) # type: ignore
+@login_required
+def delete_card():
+    user_id = session.get('user_id')
+    card_id = request.form['card_id']
+    card_name = request.form['card_name']
+    if user_id is not None:
+        user = db.get(doc_id=int(user_id))
+        cards = user.get('all_cards', []) # type: ignore
+        for card in cards:
+            if card.get('id') == card_id and card.get('name') == card_name:
+                cards.remove(card)
+                db.update(user, doc_ids=[user_id]) # type: ignore
+                break
+    return redirect(url_for('mycards'))
 
 @app.route('/logout') # type: ignore
 def logout():
@@ -169,4 +186,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(port=3030, host="89.117.33.194")
+    app.run(port=3030, debug=True)

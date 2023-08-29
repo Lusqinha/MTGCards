@@ -2,16 +2,24 @@
 <html>
 
 <head>
-    <title>Login</title>
+    <title>MTGCards | Entrar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login_register.css')}}">
 </head>
 
 <body>
-    <h2>Login</h2>
-    <form method="post">
-        <label>Username: <input type="text" name="username"></label><br>
-        <label>Password: <input type="password" name="password"></label><br>
-        <input type="submit" value="Login">
-    </form>
+    <div class="container">
+        <h1>Login</h1>
+        <form method="post" class="form-group">
+            <label for="username">Usuário:</label>
+            <input type="text" id="username" name="username">
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password">
+            <button type="submit">Entrar</button>
+        </form>
+        <div class="link-container">
+            Não possui uma conta? <a href="{{ url_for('register') }}">Registrar-se</a>
+        </div>
+    </div>
 </body>
 
 </html>

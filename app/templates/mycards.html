@@ -13,15 +13,14 @@
         <nav>
             <ul>
                 <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
-                <li><a href="{{ url_for('decks') }}">Your Decks</a></li>
-                <li><a href="{{ url_for('mycards') }}">Your Cards</a></li>
+                <li><a href="{{ url_for('decks') }}">Seus Decks</a></li>
+                <li><a href="{{ url_for('mycards') }}">Sua coleção</a></li>
                 <li><a href="{{ url_for('logout') }}">Logout</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <h1>Welcome to Card Search, {{ user.name }}</h1>
 
         <section class="collection">
             <h2>Sua coleção</h2>
@@ -29,20 +28,31 @@
                 {% for card in user.all_cards %}
                 <div class="card-item">
                     <img src="{% if card.image_url != None %}{{ card.image_url }}{% else %}{{
-                          url_for('static', filename='img/carta_neutra.png')   }}{% endif %}" alt="{{ card.name }}" class="card-image">
+                            url_for('static', filename='img/carta_neutra.png')   }}{% endif %}" alt="{{ card.name }}"
+                        class="card-image">
                     <div class="card-details">
-                        <p><strong>Nome:</strong> {% if card['foreign_names'] %}{{ card['foreign_names'][0].name }}{% else %}{{
+                        <p><strong>Nome:</strong> {% if card['foreign_names'] %}{{ card['foreign_names'][0].name }}{%
+                            else %}{{
                             card.name }}{% endif %}</p>
-                        <p><strong>Tipo:</strong> {% if card['foreign_names'] %}{{ card['foreign_names'][0].type }}{% else %}{{
+                        <p><strong>Tipo:</strong> {% if card['foreign_names'] %}{{ card['foreign_names'][0].type }}{%
+                            else %}{{
                             card.type }}{% endif %}</p>
                         <p><strong>Raridade:</strong> {{ card.rarity }}</p>
+                        <form method="POST" action="{{ url_for('delete_card') }}">
+                            <input type="hidden" name="card_id" id="card_id" value="{{ card.id }}">
+                            <input type="hidden" name="card_name" id="card_name" value="{{ card.name }}">
+                            <button type="submit" class="delete-btn">Remover</button>
+                        </form>
                     </div>
                 </div>
                 {% endfor %}
         </section>
 
+
+
         <section class="search">
-            <h2>Adicionar carta</h2>
+            <h2>Buscador de cards</h2>
+            <p>Os resultados irão aparecer em inglês</p>
             <form method="GET" action="{{ url_for('search') }}">
                 <input type="text" name="card_name" placeholder="Nome completo">
                 <button type="submit">Buscar</button>
@@ -55,23 +65,24 @@
                 {% for card in search_results %}
                 <div class="card-item">
                     <img src="{% if card.image_url != None %}{{ card.image_url }}{% else %}{{
-                          url_for('static', filename='img/carta_neutra.png')   }}{% endif %}" alt="{{ card.name }}" class="card-image">
+                            url_for('static', filename='img/carta_neutra.png') }}{% endif %}" alt="{{ card.name }}"
+                        class="card-image">
                     <div class="card-details">
                         <p><strong>Nome:</strong> {{ card.name }}</p>
                         <p><strong>Tipo:</strong> {{ card.type }}</p>
                         <p><strong>Raridade:</strong> {{ card.rarity }}</p>
                         <!-- button to select this card -->
                         <form method="POST" action="{{ url_for('add_card') }}">
-                            <input type="hidden" name="card_img" id="card_img" value="{{ card.image_url }}">
-                            <button type="submit" id="add_btn">Add to Collection</button>
+                            <input type="hidden" name="card_id" id="card_id" value="{{ card.id }}">
+                            <input type="hidden" name="card_name" id="card_name" value="{{ card.name }}">
+                            <button type="submit" id="add_btn">Adicionar à coleção</button>
+                        </form>
                     </div>
                 </div>
                 {% endfor %}
             </div>
         </section>
     </main>
-
-
 </body>
 
 </html>
